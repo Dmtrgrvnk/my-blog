@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third party
     'django_extensions',
+    'taggit',
     # my apps
     'blog.apps.BlogConfig',
 ]

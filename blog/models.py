@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from taggit.managers import TaggableManager
+
 
 class PublishedManager(models.Manager):
     """manager for filtering by status published"""
@@ -34,6 +36,7 @@ class Post(models.Model):
                               default=Status.DRAFT)
     objects = models.Manager()  # delault manager
     published = PublishedManager()  # custom manager
+    tags = TaggableManager()  # add tags
 
     class Meta:
         """reverse sort and create index"""
