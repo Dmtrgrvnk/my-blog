@@ -1,5 +1,12 @@
 from pathlib import Path
 
+from environs import Env
+
+
+env = Env()
+env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,12 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p+89*d$-+^veh3r1$j7c0(=83p8oy%h(kk9r58axr@$ok!!9rp'  # noqa
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 SITE_ID = 1
 
@@ -75,9 +82,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
-        'USER': 'blog',
-        'PASSWORD': 'blog',
+        'NAME': env('PSQL_NAME'),
+        'USER': env('PSQL_USER'),
+        'PASSWORD': env('PSQL_PASSWORD'),
     }
 }
 
@@ -125,8 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email server configuration
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'dmtrgrvnk@gmail.com'
-EMAIL_HOST_PASSWORD = 'glnyotmctdnsftzn'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = env('DJANGO_EMAIL_HOST')
+EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('DJANGO_EMAIL_PORT')
+EMAIL_USE_TLS = env.bool('DJANGO_EMAIL_USE_TLS')
